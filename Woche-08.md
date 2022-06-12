@@ -50,17 +50,17 @@ gr.dispose(); // Führt die Zeichenoperationen aus (erst das verändert das imag
 Ein Bild kann folgendermaßen kopiert werden:
 
 ```java
-    public static BufferedImage copy(BufferedImage source) {
-        BufferedImage target = new BufferedImage(
-                source.getWidth(),
-                source.getHeight(),
-                BufferedImage.TYPE_INT_RGB);
-        Graphics graphics = target.getGraphics();
-        graphics.drawImage(source, 0, 0, null);
-        graphics.dispose();
-        return target;
-    }
-    ```
+public static BufferedImage copy(BufferedImage source) {
+    BufferedImage target = new BufferedImage(
+        source.getWidth(),
+        source.getHeight(),
+        BufferedImage.TYPE_INT_RGB);
+    Graphics graphics = target.getGraphics();
+    graphics.drawImage(source, 0, 0, null);
+    graphics.dispose();
+    return target;
+}
+```
 
 Die Liste der von einem ```Graphics```-Objekt angebotenen Zeichenoperationen ist in der [offiziellen Java-Dokumentation von Oracle](https://docs.oracle.com/javase/7/docs/api/java/awt/Graphics.html) zu finden.
 
