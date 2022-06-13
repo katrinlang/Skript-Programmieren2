@@ -47,7 +47,20 @@ gr.drawRect(30, 80, 100, 250); // Viereck bei x=30, y=80, mit Breite=100 und Hö
 gr.dispose(); // Führt die Zeichenoperationen aus (erst das verändert das image)
 ```
 
-Ein Bild kann mit Hilfe der Graphics-Klasse folgendermaßen kopiert werden:
+Die Liste der von einem ```Graphics```-Objekt angebotenen Zeichenoperationen ist in der [offiziellen Java-Dokumentation von Oracle](https://docs.oracle.com/javase/7/docs/api/java/awt/Graphics.html) zu finden.
+
+### Erstellen neuer BufferedImages
+
+Selbstverständlich können Bilder nicht nur geladen werden - es können auch komplett neue ```BufferedImage```-Objekte mit definierter Größe erstellt werden, die mit den oben beschriebenen Methoden neu befüllt und gespeichert (oder in einem GUI angezeigt) werden können. Dabei ist allerdings zu beachten, dass zur Beschreibung eines Bildes nicht nur die Dimensionen, sondern auch das Farbmodell gehört - also die Information, in welcher Art die Farben gespeichert werden. Beispielsweise ist in dem folgenden Code das erste Bild ein RGBA-Bild, bei dem die Pixel-Werte wie oben beschrieben funktionieren. Das zweite Bild ist ein Grauwertbild, welches zwar über die gleichen Methoden bearbeitet werden kann, bei dem aber für den gesamten Pixelwert nur ein Byte zur Verfügung steht - entsprechend darf z. B. der Wert eines an ```setRGB``` übergebenen rgba-integers nicht größer als 255 (also die größte Zahl, die in einem Byte gespeichert werden kann) übersteigen:
+
+```java
+int width = 100;
+int height = 200;
+BufferedImage rgbaImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+BufferedImage grayscaleImage = new BufferedImage(width, height, BufferedImage.TYPE_BYTE_GRAY);
+```
+
+Ein RGB-Bild kann schlussendlich mit Hilfe der Graphics-Klasse folgendermaßen kopiert werden:
 
 ```java
 public static BufferedImage copy(BufferedImage source) {
@@ -60,17 +73,4 @@ public static BufferedImage copy(BufferedImage source) {
     graphics.dispose();
     return target;
 }
-```
-
-Die Liste der von einem ```Graphics```-Objekt angebotenen Zeichenoperationen ist in der [offiziellen Java-Dokumentation von Oracle](https://docs.oracle.com/javase/7/docs/api/java/awt/Graphics.html) zu finden.
-
-### Erstellen neuer BufferedImages
-
-Selbstverständlich können Bilder nicht nur geladen werden - es können auch komplett neue ```BufferedImage```-Objekte mit definierter Größe erstellt werden, die mit den oben beschriebenen Methoden neu befüllt und gespeichert (oder in einem GUI angezeigt) werden können. Dabei ist allerdings zu beachten, dass zur Beschreibung eines Bildes nicht nur die Dimensionen, sondern auch das Farbmodell gehört - also die Information, in welcher Art die Farben gespeichert werden. Beispielsweise ist in dem folgenden Code das erste Bild ein RGBA-Bild, bei dem die Pixel-Werte wie oben beschrieben funktionieren. Das zweite Bild ist ein Grauwertbild, welches zwar über die gleichen Methoden bearbeitet werden kann, bei dem aber für den gesamten Pixelwert nur ein Byte zur Verfügung steht - entsprechend darf z. B. der Wert eines an ```setRGB``` übergebenen rgba-integers nicht größer als 255 (also die größte Zahl, die in einem Byte gespeichert werden kann) übersteigen:
-
-```java
-int width = 100;
-int height = 200;
-BufferedImage rgbaImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-BufferedImage grayscaleImage = new BufferedImage(width, height, BufferedImage.TYPE_BYTE_GRAY);
 ```
